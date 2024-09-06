@@ -31,8 +31,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy existing application directory contents
 COPY . /var/www/html
 
-# Copy existing application directory permissions
+# Set permissions for Laravel
 RUN chown -R www-data:www-data /var/www/html
+
+# Install Laravel dependencies
+RUN composer install --prefer-dist --no-dev --no-interaction
 
 # Expose port 9000 (or any other port that php-fpm is configured to run on)
 EXPOSE 9000
