@@ -34,6 +34,8 @@ COPY . /var/www/html
 # Copy existing application directory permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port 9000 and start php-fpm server
+# Expose port 9000 (or any other port that php-fpm is configured to run on)
 EXPOSE 9000
-CMD ["php-fpm"]
+
+# Use php artisan serve to run Laravel on the provided port
+CMD php artisan serve --host=0.0.0.0 --port=${PORT}
